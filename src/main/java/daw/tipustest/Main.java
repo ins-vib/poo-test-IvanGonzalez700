@@ -5,21 +5,15 @@ import java.util.ArrayList;
 
 public class Main {
 
-    public static void main(String[] args) {
+        public static void main(String[] args) {
 
-        
-        ArrayList<Pregunta> preguntes = inicialitzarPreguntes();
-        
-        
-        Test test1 = new Test(preguntes);
+        ArrayList<Pregunta> preguntesTest = inicialitzarPreguntes();
+        Test test = new Test(preguntesTest);
+        mostrarMenu(test);
 
-        mostrarMenu();
-        
-        
-    }
+        }
 
-    public static ArrayList<Pregunta> inicialitzarPreguntes() {
-
+        public static ArrayList<Pregunta> inicialitzarPreguntes() {
         ArrayList<Pregunta> preguntes = new ArrayList<>();
         
         preguntes.add(new Pregunta("Qui va pintar el Guernica",
@@ -44,46 +38,39 @@ public class Main {
                 new String[]{"Georgetown", "New York", "Washington"}, 2));
         
         return preguntes;
-    }
+        }
 
-    public static void mostrarMenu() {
+        public static void mostrarMenu(Test test) {
         
-        Scanner teclat = new Scanner(System.in);
-        int opcio;
-        
-        while (opcio != -1) {
-                System.out.println("\nMenu");
-                System.out.println("1. Anar endavant");
-                System.out.println("2. Anar endarrera");
-                System.out.println("3. Respondre");
-                System.out.println("4. Finalitzar");
+                Scanner teclat = new Scanner(System.in);
 
-                System.out.print("\nTria una opció: ");
+                int opcio = 6;
+
+                while (opcio != 5) {
+                System.out.println(test.getEnunciatPreguntaActual());
+                System.out.println("Tria una opció: (1)Endarrera - (2) Respondre - (3) Endavant - (4) Finalitzar ");
+                test.getRespostesPreguntaActual();
                 opcio = teclat.nextInt();
-                
+                System.out.println("Has escollit: "+ opcio);
+
+
                 switch (opcio) {
                 case 1:
-                Test.anarEndavant();
-                mostrarMenu();
-                break;
+                        test.anarEndarrera();
+                        break;
                 case 2:
-                Test.anarEndarrera();
-                mostrarMenu();
-                break;
+                        System.out.println("Tecleja el numero de resposta");
+                        test.respondre(teclat.nextInt());
+                        break;
                 case 3:
-                Test.respondre(opcio);
-                mostrarMenu();
-                break;
+                        test.anarEndavant();
+                        break;
                 case 4:
-                System.out.println("Puntuacio: " + Test.solucionarTest());
-                opcio = -1;
-                break;
-                
-                default:
-                System.out.println("Opció no vàlida");
-                mostrarMenu();
-                break;
-                }
-        } 
-}
+                        System.out.println("La teva puntuacio es: " + test.solucionarTest());
+                        opcio = 5;
+                        break;
+                }       
+        }
+        teclat.close();
+        }
 }

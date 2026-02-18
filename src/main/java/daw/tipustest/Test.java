@@ -14,11 +14,17 @@ public class Test {
     }
 
     public String getEnunciatPreguntaActual(){
-        return preguntes.get(numPregunta).getEnunciat();
+        String enunciat = "Pregunta " + (numPregunta + 1) + ": " + preguntes.get(numPregunta).getEnunciat();
+        return enunciat;
     }
 
-    public String[] getRespostesPreguntaActual(){
-        return preguntes.get(numPregunta).getRespostes();
+    public void getRespostesPreguntaActual(){
+        String[] respostes = preguntes.get(numPregunta).getRespostes();
+        
+        String[] respostesFormatejades = new String[respostes.length];
+        for (int i = 0; i < respostes.length; i++) {
+            System.out.println(respostesFormatejades[i] = (i + 1) + ". " + respostes[i]);
+        }
     }
 
     public int getNumeroPregunta(){
@@ -27,33 +33,41 @@ public class Test {
 
     public void respondre(int resposta){
         respostes.add(resposta);
+        numPregunta++;
     }
 
     public boolean anarEndavant(){
-        numPregunta++;
-    if (numPregunta < preguntes.size()) {
+
+        if (numPregunta + 1 < preguntes.size()) {
+            numPregunta++;
             return true;
         } else {
+            System.out.println("No hi ha mes preguntes");
             return false;
         }
     }
 
     public boolean anarEndarrera(){
-        numPregunta--;
-    if (numPregunta >= 0) {
+        
+    if (numPregunta > 0) {
+            numPregunta--;
             return true;
         } else {
+            System.out.println("No pots anar enrere");
             return false;
         }
     }
 
     public double solucionarTest(){
+        
         double puntuacio = 0;
+
         for (int i = 0; i < respostes.size(); i++) {
-            if (respostes.get(i) == preguntes.get(i).getCorrecta()) {
-                puntuacio++;
+            if (respostes.get(i) == preguntes.get(i).getCorrecta()+1) {
+                puntuacio = puntuacio + 10 / preguntes.size();
             }
         }
+
         return puntuacio;
     }
 }
