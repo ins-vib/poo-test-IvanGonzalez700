@@ -1,0 +1,41 @@
+@startuml tipustest
+
+class Pregunta {
+    - enunciat : String
+    - respostes : String[]
+    - correcta : int
+    --
+    + Pregunta(enunciat, respostes, correcta)
+    + getEnunciat() : String
+    + setEnunciat(enunciat : String) : void
+    + getRespostes() : String[]
+    + setRespostes(respostes : String[]) : void
+    + getCorrecta() : int
+    + setCorrecta(correcta : int) : void
+}
+
+class Test {
+    # preguntes : ArrayList<Pregunta>
+    # respostes : ArrayList<Integer>
+    # numPregunta : int
+    --
+    + Test(preguntes : ArrayList<Pregunta>)
+    + getEnunciatPreguntaActual() : String
+    + getRespostesPreguntaActual() : void
+    + getNumeroPregunta() : int
+    + respondre(resposta : int) : void
+    + anarEndavant() : boolean
+    + anarEndarrera() : boolean
+    + solucionarTest() : double
+}
+
+class Main {
+    + {static} main(args : String[]) : void
+    + {static} inicialitzarPreguntes() : ArrayList<Pregunta>
+    + {static} mostrarMenu(test : Test) : void
+}
+
+Main ..> Test      : creates/uses
+Main ..> Pregunta  : creates
+
+@enduml
